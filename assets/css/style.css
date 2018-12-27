@@ -1,0 +1,58 @@
+/* fonts to try
+font-family: 'Ranchers', cursive;
+font-family: 'Chicle', cursive;
+font-family: 'Spicy Rice', cursive;
+*/
+
+
+body {
+  background-image: url('../images/background-03.png');
+  margin: auto;
+  padding: 0;
+}
+
+.mybox {
+  width: 60%;
+  margin: 40px auto;
+  text-align: center;
+  height: 300px;
+}
+
+h1 {
+  font-size: 3rem;
+  font-family: 'Spicy Rice', cursive;
+  color: #CC2473
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+/* word being guessed */
+#letters {
+  font-size: 4rem;
+  color: #3CC9EB
+}
+
+#linkSmall {
+  font-size: .5rem
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+}
+
+
+@media only screen and (max-width: 992px) {
+  body {
+    background-image: url('../images/background1200.png');
+  }
+}
+
+
+@media only screen and (max-width: 600px) {
+  body {
+    background-image: url('../images/background800.png');
+  }
+}
