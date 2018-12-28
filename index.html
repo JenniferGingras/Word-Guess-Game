@@ -17,7 +17,7 @@
     <!--Button "click to start"-->
     <div class="row">
       <div class="col-md-12">
-        <button type="button" class="btn btn-warning" id="startBtn" onclick='gameStart()'>Start Guessing</button>
+        <button type="button" class="btn btn-warning" id="startBtn" onclick='gameStart()'>Start</button>
       </div>
     </div>
     <!--Title and instructions-->
@@ -40,15 +40,19 @@
     <hr>
     <!--Three columns with the stats-->
     <div class="row myrow">
-      <div class="col-md-3 my-col">
-        Wins
+      <div class="col-md-1 my-col">
+        <h3>Wins</h3>
         <div id="wins"></div>
       </div>
-      <div class="col-md-6 my-col wrongLetters">
-        Wrong Guesses
+      <div class="col-md-1 my-col">
+        <h3>Losses</h3>
+        <div id="losses"></div>
+      </div>
+      <div class="col-md-7 my-col wrongLetters">
+        <h3>Wrong Letters</h3>
       </div>
       <div class="col-md-3 my-col">
-        Guesses
+        <h3>Guesses Left</h3>
         <div id="guessCount"></div>
       </div>
     </div>

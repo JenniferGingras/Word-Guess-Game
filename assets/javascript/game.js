@@ -3,57 +3,76 @@ var wordArr = ["groovy", "aquarius", "stoned", "protest", "peaceful", "incense",
   "liberation", "karma", "rocknroll", "headband", "sixties", "flowerpower"
 ];
 
-// countdown the guesses
-var numGuess = 8
-document.getElementById('guessCount');
-
-// count the wins and losses
-var wins = 0
-document.getElementById('wins');
-// var losses = 0
-
-// Click event on start button to begin the game
-var startBtn = document.getElementById('startBtn');
-
-// random word from the array  
+// VARIABLES NEEDED
+// random word from array
 var randomWord = wordArr[Math.floor(Math.random() * wordArr.length)];
-
-// create an array that placeholds astericks in place of letters
+// counting variables
+var numGuess = 8;
+var wins = 0;
+var losses = 0;
+// Wrong letters array (blank so letters can be stored there as guessed)
+var wrongLetters = [];
+// Click event on start button to begin the game (figure this out later, after getting some functionality in the actual game)
+// var startBtn = document.getElementById('startBtn');
+// Array that placeholds astericks in place of letters
 var answerArr = [];
+// Turns letters in randomWord into string
+var randomWordArr = randomWord.split("");
 
-var remainingLetters = randomWord.length;
-
-function gameStart() {}
+// SET UP THE GAME FROM START - The state the game is in when started (numbers and random word reset)
+// function gameStart() {}
+// Turn word into asterisks
 for (var i = 0; i < randomWord.length; i++) {
   answerArr[i] = "*";
   // display word on screen
   document.getElementById("letters").innerHTML = answerArr.join(" ");
-
 }
 
-// user presses letter key - I can't figure out how this works
-document.onkeyup()
+// WHERE DO I PUT THIS? 
+document.getElementById("guessCount").innerHTML = numGuess;
+document.getElementById("wins").innerHTML = wins;
+document.getElementById("losses").innerHTML = losses;
 
+// GET USER INPUT
+document.onkeyup = function (event) {
+  var guess = event.key
+  checkGuess(guess);
+}
 
-
-// if letter key is in randomWord reveal the letter
-for (var j = 0; j < randomWord.length; j++)
-  if (randomWord[j] === guess) {
-    answerArr[j] = guess;
-    remainingLetters--;
+// check if letters in guess match randomWord - NOT WORKING!! PROBABLY BECAUSE I'M DOING IT WRONG
+function checkGuess(guess) {
+  for (var i = 0; i < randomWordArr.length; i++) {
+    // if letter key is in randomWord reveal the letter
+    if (randomWordArr[i] === guess) {
+      answerArr[i] = guess;
+    } else {
+      // if not in randomWord add letter to wrongLetters array
+      wrongLetters.push(guess);
+      // set up wrongLetters for screen
+      document.getElementById("wrongLetters").innerHTML = wrongLetters.join(" ");
+      // if not subtract 1 from numGuess
+      numGuess--;
+    }
   }
-
-// if not in randomWord add letter to wrong guesses
-// if not subtract 1 from numGuess
-
-// if not a letter key then alert(Hey man, that's not a letter)
+}
 
 
-// When remainingLetters = 0 create "You Won!" alert thing
 // Add (1) to wins
 
-// When numGuess = 0 create "You Lost" alert thing
 // Add (1) to losses
+
+
+
+// Tutoring help, but I'm not sure where he was going with these true/false variables...
+/* for (var i = 0; i < randomWordArr.length; i++) {
+    if (randomWordArr[i] === guess) {
+      isLetterFound = true;
+      console.log("success");
+    }
+  } */
+
+
+
 
 // restart game with function
 // gamestart();
