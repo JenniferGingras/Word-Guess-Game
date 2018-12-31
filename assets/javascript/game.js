@@ -1,83 +1,100 @@
+// ARRAYS
+//----------------------
 // array of words 
 var wordArr = ["groovy", "aquarius", "stoned", "protest", "peaceful", "incense", "counterculture", "hallucination", "psychedelic", "tripping", "woodstock",
   "liberation", "karma", "rocknroll", "headband", "sixties", "flowerpower"
 ];
+// Array to hold the letters of the randomWord
+var randomWordLetters = [];
+// Array to hold the asterisks pushed in place of each letter
+var answerArr = [];
+// Wrong letters array (blank so letters can be stored there as guessed)
+var wrongLetter = [];
 
-// VARIABLES NEEDED
-// random word from array
-var randomWord = wordArr[Math.floor(Math.random() * wordArr.length)];
+
+// VARIABLES
+//---------------------------
 // counting variables
 var numGuess = 8;
 var wins = 0;
 var losses = 0;
-// Wrong letters array (blank so letters can be stored there as guessed)
-var wrongLetters = [];
-// Click event on start button to begin the game (figure this out later, after getting some functionality in the actual game)
+// variables which get values during gameplay
+var keyGuess;
+var randomWord;
 // var startBtn = document.getElementById('startBtn');
-// Array that placeholds astericks in place of letters
-var answerArr = [];
-// Turns letters in randomWord into string
-var randomWordArr = randomWord.split("");
 
-// SET UP THE GAME FROM START - The state the game is in when started (numbers and random word reset)
-// function gameStart() {}
-// Turn word into asterisks
-for (var i = 0; i < randomWord.length; i++) {
-  answerArr[i] = "*";
-  // display word on screen
+
+// THE GAME
+//-----------------------
+
+// START/RESTART - chooses a new word and sets counters/arrays back to starting point
+// function gameSet() {
+
+  // set counters at startpoint
+  numGuess = 8;
+  wrongLetter = [];
+
+  // computer selects random word from array
+  randomWord = wordArr[Math.floor(Math.random() * wordArr.length)];
+
+  // turn letters in randomWord into string
+  randomWordLetters = randomWord.split("");
+
+  // turn letters in word into asterisks
+  for (var i = 0; i < randomWordLetters.length; i++) {
+    answerArr.push("*");
+  }
+  // display 
   document.getElementById("letters").innerHTML = answerArr.join(" ");
-}
+  document.getElementById("wrongLetters").innerHTML = wrongLetter.join(" ");
+  document.getElementById("guessCount").innerHTML = numGuess;
+  document.getElementById("wins").innerHTML = wins;
+  document.getElementById("losses").innerHTML = losses;
+// }
 
-// WHERE DO I PUT THIS? 
-document.getElementById("guessCount").innerHTML = numGuess;
-document.getElementById("wins").innerHTML = wins;
-document.getElementById("losses").innerHTML = losses;
 
-// GET USER INPUT
+// USER INPUT
 document.onkeyup = function (event) {
-  var guess = event.key
-  checkGuess(guess);
+  keyGuess = event.key;
+  // console.log(keyGuess)
 }
 
-// check if letters in guess match randomWord - NOT WORKING!! PROBABLY BECAUSE I'M DOING IT WRONG
-function checkGuess(guess) {
-  for (var i = 0; i < randomWordArr.length; i++) {
-    // if letter key is in randomWord reveal the letter
-    if (randomWordArr[i] === guess) {
-      answerArr[i] = guess;
-    } else {
-      // if not in randomWord add letter to wrongLetters array
-      wrongLetters.push(guess);
-      // set up wrongLetters for screen
-      document.getElementById("wrongLetters").innerHTML = wrongLetters.join(" ");
-      // if not subtract 1 from numGuess
-      numGuess--;
+
+// CHECK GUESSED LETTERS
+function checkLetter(letter) {
+  if (keyGuess >= 65 && keyGuess <= 90) { // check to make sure it's a letter
+    for (var i = 0; i < randomWordLetters.length; i++) { // check the guessed letter against letters in the word
+      if (keyGuess === randomWordLetters[i]) { // if guessed letter is in word 
+        answerArr[i] = keyGuess; // add letter to answer
+      } else { // if guessed letter is not in word 
+        wrongLetter.push(keyGuess); // add letter to wrongLetter array 
+        numGuess--; // subtract 1 from guesses
+      }
     }
   }
 }
 
+// FINISH A WORD ROUND
+function roundEnd() {
+  // game lost
+  if (numGuess === 0) {
+    // Add (1) to losses
+    losses++;
+    // display losing message - change to image after figuring out basic functionality
+    alert("Aw, man. Get it together!")
+  }
+  // game won
+  // if () {
+  // Add (1) to wins
+  wins++;
+  // disply win message - change to image after figuring out basic functionality
+  alert("Far out!")
+}
+// }
 
-// Add (1) to wins
+// PLAYING GAME?
+//----------------------
 
-// Add (1) to losses
+// startBtn.addEventListener('click', gameSet);
 
-
-
-// Tutoring help, but I'm not sure where he was going with these true/false variables...
-/* for (var i = 0; i < randomWordArr.length; i++) {
-    if (randomWordArr[i] === guess) {
-      isLetterFound = true;
-      console.log("success");
-    }
-  } */
-
-
-
-
-// restart game with function
-// gamestart();
-
-
-
-// Where does this go? should I bother with a start button? 
-// startBtn.addEventListener('click', gameStart);
+// checkLetter();
