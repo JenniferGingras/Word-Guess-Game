@@ -48,15 +48,9 @@ footer {
 }
 
 
-@media only screen and (max-width: 992px) {
-  body {
-    background-image: url('../images/background1200.png');
-  }
-}
 
-
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 800px) {
   body {
-    background-image: url('../images/background800.png');
+    background-image: url('../images/background8x8.png');
   }
 }
