@@ -2,7 +2,7 @@
 //----------------------
 // array of words 
 var wordArr = ["groovy", "aquarius", "stoned", "protest", "peaceful", "incense", "counterculture", "hallucination", "psychedelic", "tripping", "woodstock",
-  "liberation", "karma", "rocknroll", "headband", "sixties", "flowerpower"
+  "liberation", "karma", "rocknroll", "headband", "sixties", "flower"
 ];
 // Array to hold the letters of the randomWord
 var randomWordLetters = [];
@@ -19,7 +19,7 @@ var numGuess = 8;
 var wins = 0;
 var losses = 0;
 var randomWord = "";
-var letterKey = "";
+// var letterKey = "";
 // var startBtn = document.getElementById('startBtn');
 
 
@@ -88,13 +88,13 @@ function checkLetter(keyGuess) {
 }
 
 
-// FINISH A WORD ROUND
+// AFTER EACH LETTER IS GUESSED
 function afterGuess() {
   // update HTML 
   document.getElementById("letters").innerHTML = answerArr.join(" ");
   document.getElementById("wrongLetters").innerHTML = wrongLetter.join(" ");
   document.getElementById("guessCount").innerHTML = numGuess;
-  // game lost
+  // check if game is lost
   if (numGuess === 0) {
     // Add (1) to losses
     losses++;
@@ -103,7 +103,7 @@ function afterGuess() {
     alert("Aw, man. Get it together!")
     gameSet();
   }
-  // game won
+  // check if game is won
   else if (randomWordLetters.toString() === answerArr.toString()) {
     // Add (1) to wins
     wins++;
@@ -125,9 +125,14 @@ gameSet();
 // }
 
 // USER INPUT
-document.onkeyup = function (event) {
-  letterKey = event.key
-  console.log(letterKey)
+document.onkeyup = function (e) {
+  if (e.keyCode >= 65 && e.keyCode <= 90) { // check if the key pressed is a letter key using the keyCode 
+    var letterCode = e.keyCode; // variable to capture the keyCode
+    var letterKey = String.fromCharCode(letterCode); // variable to change the keyCode value into a string to show the letter
+    // console.log(letterCode)
+  } else { // if it's not a letter key display alert
+    alert('Pick a letter');
+  }
 
   // call the checkLetter function
   checkLetter(letterKey);
