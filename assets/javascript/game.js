@@ -2,7 +2,7 @@
 //----------------------
 // array of words 
 var wordArr = ["groovy", "aquarius", "stoned", "protest", "peaceful", "incense", "counterculture", "hallucination", "psychedelic", "tripping", "woodstock",
-  "liberation", "karma", "rocknroll", "headband", "sixties", "flower"
+  "liberation", "karma", "rocknroll", "sixties", "flower"
 ];
 // Array to hold the letters of the randomWord
 var randomWordLetters = [];
@@ -11,21 +11,22 @@ var answerArr = [];
 // Wrong letters array (blank so letters can be stored there as guessed)
 var wrongLetter = [];
 
-
 // VARIABLES
 //---------------------------
-// counting variables
 var numGuess = 8;
 var wins = 0;
 var losses = 0;
 var randomWord = "";
-// var letterKey = "";
-// var startBtn = document.getElementById('startBtn');
 
+// Variables for displaying
+var answerLetters = document.getElementById("letters")
+var usedLetters = document.getElementById("wrongLetters")
+var guessCount = document.getElementById("guessCount")
+var winCounter = document.getElementById("wins")
+var lossCounter = document.getElementById("losses")
 
 // THE GAME
 //-----------------------
-
 // START/RESTART - chooses a new word and sets counters/arrays back to starting point
 function gameSet() {
 
@@ -56,50 +57,42 @@ function gameSet() {
   wrongLetter = [];
 
   // display 
-  document.getElementById("letters").innerHTML = answerArr.join(" ");
-  document.getElementById("wrongLetters").innerHTML = wrongLetter.join(" ");
-  document.getElementById("guessCount").innerHTML = numGuess;
-  document.getElementById("wins").innerHTML = wins;
-  document.getElementById("losses").innerHTML = losses;
+  answerLetters.innerHTML = answerArr.join(" ");
+  usedLetters.innerHTML = wrongLetter.join(" ");
+  guessCount.innerHTML = numGuess;
 }
 
 // CHECK GUESSED LETTERS
 function checkLetter(keyGuess) {
-  // I don't understand why I need this true/false part, but it was in examples I found and when I take it away again stuff breaks.
   var letter = false;
-  for (var i = 0; i < randomWordLetters.length; i++) {
-    if (randomWord[i] === keyGuess) {
-      letter = true;
+  for (var i = 0; i < randomWordLetters.length; i++) { // check the guessed letter against letters in the word
+    if (randomWord[i] === keyGuess) { // if guessed letter is in word 
+      console.log(keyGuess);
+      answerArr[i] = keyGuess;
+      letter = true; // add letter to answer
     }
   }
-  if (letter) {
-    for (var i = 0; i < randomWordLetters.length; i++) { // check the guessed letter against letters in the word
-      if (randomWord[i] === keyGuess) { // if guessed letter is in word 
-        answerArr[i] = keyGuess; // add letter to answer
-      }
-    }
-    // test
-    console.log(answerArr);
+  // test
+  console.log(answerArr);
 
-  } else { // if guessed letter is not in word 
+  if (!letter) { // if guessed letter is not in word 
     wrongLetter.push(keyGuess); // add letter to wrongLetter array 
     numGuess--; // subtract 1 from guesses
   }
 }
 
-
 // AFTER EACH LETTER IS GUESSED
 function afterGuess() {
   // update HTML 
-  document.getElementById("letters").innerHTML = answerArr.join(" ");
-  document.getElementById("wrongLetters").innerHTML = wrongLetter.join(" ");
-  document.getElementById("guessCount").innerHTML = numGuess;
+  answerLetters.innerHTML = answerArr.join(" ");
+  usedLetters.innerHTML = wrongLetter.join(" ");
+  guessCount.innerHTML = numGuess;
   // check if game is lost
   if (numGuess === 0) {
     // Add (1) to losses
     losses++;
-    document.getElementById("losses").innerHTML = losses;
-    // display losing message - change to image after figuring out basic functionality
+    lossCounter.innerHTML = losses;
+    // display losing message 
     alert("Aw, man. Get it together!")
     gameSet();
   }
@@ -107,8 +100,8 @@ function afterGuess() {
   else if (randomWordLetters.toString() === answerArr.toString()) {
     // Add (1) to wins
     wins++;
-    document.getElementById("wins").innerHTML = wins;
-    // disply win message - change to image after figuring out basic functionality
+    winCounter.innerHTML = wins;
+    // disply win message (alert until I figure out another way)
     alert("Far out!")
 
     //restart the game
@@ -120,22 +113,18 @@ function afterGuess() {
 //----------------------
 // call the start of game 
 gameSet();
-// startBtn.addEventListener('click', gameSet()) {
-// document.getElementById('startBtn').innerHTML
-// }
 
 // USER INPUT
 document.onkeyup = function (e) {
-  if (e.keyCode >= 65 && e.keyCode <= 90) { // check if the key pressed is a letter key using the keyCode 
-    var letterCode = e.keyCode; // variable to capture the keyCode
-    var letterKey = String.fromCharCode(letterCode); // variable to change the keyCode value into a string to show the letter
-    // console.log(letterCode)
-  } else { // if it's not a letter key display alert
+  let letterKey = e.key; // put user input into variable
+  if (letterKey.match(/^[A-Za-z]+$/) && letterKey.length === 1) // check if key pressed is a letter
+    checkLetter(letterKey); // run checkLetter function to check if letter is in word and push it to proper array
+  else { // if it's not a letter display alert
     alert('Pick a letter');
   }
 
-  // call the checkLetter function
-  checkLetter(letterKey);
   // call the afterGuess function
+  //setTimeout(afterGuess, 1000);
   afterGuess();
+
 }
