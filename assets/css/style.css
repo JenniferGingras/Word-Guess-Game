@@ -5,7 +5,7 @@ body {
 }
 
 .mybox {
-  width: 60%;
+  width: 50%;
   margin: 40px auto;
   text-align: center;
   height: 300px;
@@ -22,7 +22,34 @@ h2 {
 }
 
 h3 {
-  font-size: 1rem;
+  font-size: 1.25rem;
+}
+
+.winner-message {
+  background-color: #b2dfdb;
+  opacity: 0.8;
+  padding: 2rem;
+}
+
+.winner-message h2 {
+  color: #CC2473;
+  font-family: 'Spicy Rice', cursive;
+}
+
+.loser-message {
+  background-color: #b2dfdb;
+  opacity: 0.8;
+  padding: 2rem;
+}
+
+.loser-message h2 {
+  color: #CC2473;
+  font-family: 'Spicy Rice', cursive;
+}
+
+
+.hide-btn {
+  font-size: .75rem;
 }
 
 /* word being guessed */
@@ -30,6 +57,18 @@ h3 {
   font-size: 4rem;
   color: #3CC9EB
 }
+
+#losses,
+#wrongLetters,
+#guessCount,
+#wins {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #CC2473;
+}
+
+
+
 
 #linkSmall {
   font-size: .5rem
